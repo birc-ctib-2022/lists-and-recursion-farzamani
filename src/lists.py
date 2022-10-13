@@ -71,7 +71,10 @@ def contains(x: List[T], e: T) -> bool:
     >>> contains(L(1, L(2, L(3, None))), 2)
     True
     """
-    ...
+    if x.tail != None:
+      return True if x.head == e else contains(x.tail, e)
+    else:
+      return True if x.head == e else False
 
 
 def drop(x: List[T], k: int) -> List[T]:
@@ -86,7 +89,7 @@ def drop(x: List[T], k: int) -> List[T]:
     >>> drop(x, 3)
     L(4, None)
     """
-    ...
+    return x if k == 0 else drop(x.tail, k-1)
 
 
 def keep(x: List[T], k: int) -> List[T]:
@@ -100,7 +103,7 @@ def keep(x: List[T], k: int) -> List[T]:
     >>> keep(x, 3)
     L(1, L(2, L(3, None)))
     """
-    ...
+    return None if k == 0 else L(x.head, keep(x.tail, k-1))
 
 
 def concat(x: List[T], y: List[T]) -> List[T]:
@@ -110,7 +113,10 @@ def concat(x: List[T], y: List[T]) -> List[T]:
     >>> concat(L(1, L(2, None)), L(3, L(4, None)))
     L(1, L(2, L(3, L(4, None))))
     """
-    ...
+    if x != None:
+        return L(x.head, concat(x.tail, y))
+    if y != None:
+        return L(y.head, concat(x, y.tail))
 
 
 def append(x: List[T], e: T) -> List[T]:
@@ -120,7 +126,11 @@ def append(x: List[T], e: T) -> List[T]:
     >>> append(L(1, L(2, None)), 3)
     L(1, L(2, L(3, None)))
     """
-    ...
+    if x == None:
+        return L(e, None)
+    else:
+        x.tail = append(x.tail, e)
+    return x
 
 
 def rev(x: List[T]) -> List[T]:
@@ -130,7 +140,15 @@ def rev(x: List[T]) -> List[T]:
     >>> rev(L(1, L(2, L(3, None))))
     L(3, L(2, L(1, None)))
     """
-    ...
+    if x == None:
+      return x
+    if x.tail == None:
+      return x
+
+    out = rev(x.tail)
+    x.tail.tail = x
+    x.tail = None
+    return out
 
 
 # Tail-recursive versions ###########################################
