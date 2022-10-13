@@ -126,7 +126,11 @@ def append(x: List[T], e: T) -> List[T]:
     >>> append(L(1, L(2, None)), 3)
     L(1, L(2, L(3, None)))
     """
-    ...
+    if x == None:
+        return L(e, None)
+    else:
+        x.tail = append(x.tail, e)
+    return x
 
 
 def rev(x: List[T]) -> List[T]:
@@ -136,7 +140,15 @@ def rev(x: List[T]) -> List[T]:
     >>> rev(L(1, L(2, L(3, None))))
     L(3, L(2, L(1, None)))
     """
-    ...
+    if x == None:
+      return x
+    if x.tail == None:
+      return x
+
+    out = rev(x.tail)
+    x.tail.tail = x
+    x.tail = None
+    return out
 
 
 # Tail-recursive versions ###########################################

@@ -28,7 +28,7 @@ def test_concat():
     assert lists.concat(y, x) == L(4, L(5, L(1, L(2, L(3, None)))))
 
 def test_append():
-    assert 1 == 1
+    assert lists.append(L(1, L(2, None)), 3) == L(1, L(2, L(3, None)))
 
 def test_rev():
-    assert 1 == 1
+    assert lists.rev(L(1, L(2, L(3, None)))) == L(3, L(2, L(1, None)))
